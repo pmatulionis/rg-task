@@ -3,6 +3,7 @@ package co.uk.realisticgames.task.model.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
+import lombok.Generated;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  *
  * @author Paulius Matulionis
  */
+@Generated
 @Data
 public class DataDto {
 

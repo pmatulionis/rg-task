@@ -3,6 +3,7 @@ package co.uk.realisticgames.task.model.api;
 import co.uk.realisticgames.task.model.dto.VehicleTypeDto;
 
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 /**
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
  *
  * @author Paulius Matulionis
  */
+@Generated
 @Data
 @NoArgsConstructor
 public class VehicleTypeItem {

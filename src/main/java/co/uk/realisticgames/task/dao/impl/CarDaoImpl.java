@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -72,9 +73,7 @@ public class CarDaoImpl implements CarDao, InitializingBean {
                 }).collect(Collectors.toCollection(LinkedList::new));
             }
 
-            if (sortParams.performSort()) {
-                list.sort(buildComparator(sortParams));
-            }
+            Optional.ofNullable(buildComparator(sortParams)).ifPresent(list::sort);
 
             return list;
         } finally {
@@ -90,10 +89,7 @@ public class CarDaoImpl implements CarDao, InitializingBean {
                 r.setCountry(dto.getCountry());
                 r.setName(dto.getName());
                 r.setCommonName(dto.getCommonName());
-
-                if (dto.getTypes() != null) {
-                    r.setTypes(dto.getTypes());
-                }
+                r.setTypes(dto.getTypes());
             });
         } finally {
             writeLock.unlock();
@@ -129,28 +125,23 @@ public class CarDaoImpl implements CarDao, InitializingBean {
     }
 
     private Comparator<CarDataDto> buildComparator(SortParams params) {
-        if ("country".equals(params.getField())) {
-            switch (params.getDirection()) {
-                case SortParams.Direction.ASC -> {
+        if (params.performSort()) {
+            if (SortParams.Field.COUNTRY.equals(params.getField())) {
+                if (SortParams.Direction.DESC.equals(params.getDirection())) {
+                    return Comparator.comparing(CarDataDto::getCountry).reversed();
+                } else {
                     return Comparator.comparing(CarDataDto::getCountry);
                 }
-                case SortParams.Direction.DESC -> {
-                    return Comparator.comparing(CarDataDto::getCountry).reversed();
-                }
             }
-        }
 
-        if ("name".equals(params.getField())) {
-            switch (params.getDirection()) {
-                case SortParams.Direction.ASC -> {
+            if (SortParams.Field.NAME.equals(params.getField())) {
+                if (SortParams.Direction.DESC.equals(params.getDirection())) {
+                    return Comparator.comparing(CarDataDto::getName).reversed();
+                } else {
                     return Comparator.comparing(CarDataDto::getName);
                 }
-                case SortParams.Direction.DESC -> {
-                    return Comparator.comparing(CarDataDto::getName).reversed();
-                }
             }
         }
-
-        return Comparator.comparing(CarDataDto::getCountry);
+        return null;
     }
 }

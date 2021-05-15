@@ -2,6 +2,7 @@ package co.uk.realisticgames.task.model.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  *
  * @author Paulius Matulionis
  */
+@Generated
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

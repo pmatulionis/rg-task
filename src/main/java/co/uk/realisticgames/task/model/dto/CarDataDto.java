@@ -5,6 +5,7 @@ import co.uk.realisticgames.task.model.api.CarDataItem;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.util.List;
  *
  * @author Paulius Matulionis
  */
+@Generated
 @Data
 @NoArgsConstructor
 public class CarDataDto implements Serializable {

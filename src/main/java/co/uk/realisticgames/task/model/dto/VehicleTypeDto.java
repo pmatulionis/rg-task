@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  *
  * @author Paulius Matulionis
  */
+@Generated
 @Data
 @EqualsAndHashCode(exclude = {"primary"})
 @NoArgsConstructor

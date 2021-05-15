@@ -1,6 +1,7 @@
 package co.uk.realisticgames.task.model.search;
 
 import lombok.Data;
+import lombok.Generated;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,14 +11,17 @@ import java.util.List;
  *
  * @author Paulius Matulionis
  */
+@Generated
 @Data
 public class SortParams {
 
+    @Generated
     public static class Direction {
         public static final String ASC = "asc";
         public static final String DESC = "desc";
     }
 
+    @Generated
     public static class Field {
         public static final String COUNTRY = "country";
         public static final String NAME = "name";
@@ -37,6 +41,7 @@ public class SortParams {
                 if (ALLOWED_FIELDS.contains(split[0])) {
                     this.field = split[0];
                 }
+
                 if (ALLOWED_DIRECTIONS.contains(split[1])) {
                     this.direction = split[1];
                 }
@@ -54,6 +59,6 @@ public class SortParams {
     }
 
     public boolean performSort() {
-        return this.field != null && this.direction != null;
+        return this.field != null;
     }
 }

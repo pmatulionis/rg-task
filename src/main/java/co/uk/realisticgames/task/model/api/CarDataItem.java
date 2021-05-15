@@ -5,6 +5,7 @@ import co.uk.realisticgames.task.model.dto.CarDataDto;
 import io.swagger.annotations.ApiParam;
 
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.List;
  *
  * @author Paulius Matulionis
  */
+@Generated
 @Data
 @NoArgsConstructor
 public class CarDataItem implements Serializable {
