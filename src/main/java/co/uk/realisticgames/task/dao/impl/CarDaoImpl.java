@@ -33,7 +33,7 @@ public class CarDaoImpl implements CarDao, InitializingBean {
 
     private final ObjectMapper objectMapper;
 
-    private List<CarDataDto> dataDataList;
+    private List<CarDataDto> dataList;
 
     private static final ReadWriteLock READ_WRITE_LOCK = new ReentrantReadWriteLock();
 
@@ -51,7 +51,7 @@ public class CarDaoImpl implements CarDao, InitializingBean {
     public List<CarDataDto> findData(SortParams sortParams, FilterParams filterParams) {
         readLock.lock();
         try {
-            List<CarDataDto> list = new LinkedList<>(this.dataDataList);
+            List<CarDataDto> list = new LinkedList<>(this.dataList);
 
             if (filterParams.performFilter()) {
                 list = list.stream().filter(f -> {
@@ -85,7 +85,7 @@ public class CarDaoImpl implements CarDao, InitializingBean {
     public void update(Integer id, CarDataDto dto) {
         writeLock.lock();
         try {
-            this.dataDataList.stream().filter(f -> f.getId().equals(id)).forEach(r -> {
+            this.dataList.stream().filter(f -> f.getId().equals(id)).forEach(r -> {
                 r.setCountry(dto.getCountry());
                 r.setName(dto.getName());
                 r.setCommonName(dto.getCommonName());
@@ -100,7 +100,7 @@ public class CarDaoImpl implements CarDao, InitializingBean {
     public void create(CarDataDto dto) {
         writeLock.lock();
         try {
-            this.dataDataList.add(dto);
+            this.dataList.add(dto);
         } finally {
             writeLock.unlock();
         }
@@ -110,7 +110,7 @@ public class CarDaoImpl implements CarDao, InitializingBean {
     public void delete(Integer id) {
         writeLock.lock();
         try {
-            this.dataDataList.removeIf(f -> f.getId().equals(id));
+            this.dataList.removeIf(f -> f.getId().equals(id));
         } finally {
             writeLock.unlock();
         }
@@ -121,7 +121,7 @@ public class CarDaoImpl implements CarDao, InitializingBean {
             throws Exception {
         ClassPathResource resource = new ClassPathResource("data/carmfg_data.json");
         DataDto data = objectMapper.readValue(resource.getInputStream(), DataDto.class);
-        this.dataDataList = data.getData();
+        this.dataList = data.getData();
     }
 
     private Comparator<CarDataDto> buildComparator(SortParams params) {
